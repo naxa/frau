@@ -95,6 +95,7 @@ func (c *AcceptCommand) AcceptChangesetByReviewer(ctx context.Context, ev *githu
 
 func (c *AcceptCommand) acceptChangeset(ctx context.Context, ev *github.IssueCommentEvent, cmd input.AcceptChangesetCommand) (bool, error) {
 	sender := *ev.Sender.Login
+	user := github.User{Login: &sender}
 
 	client := c.Client
 	issueSvc := client.Issues
@@ -123,6 +124,24 @@ func (c *AcceptCommand) acceptChangeset(ctx context.Context, ev *github.IssueCom
 	if err != nil {
 		log.Println("info: could not fetch the pull request information.")
 		return false, err
+	}
+
+	opt := &github.ListOptions{}
+	commit := pr.Head.SHA
+	approve := "APPROVE"
+	reviewers, _, err := prSvc.ListReviewers(ctx, repoOwner, repoName, issue, opt)
+	if err != nil {
+		log.Println("info: could not get list of requested reviewers.")
+		return false, err
+	}
+	if containsReviewer, _ := containsGitHubUser(reviewers.Users, &user); containsReviewer {
+		createReview := &github.PullRequestReviewRequest{CommitID: commit, Event: &approve}
+		_, _, err := prSvc.CreateReview(ctx, repoOwner, repoName, issue, createReview)
+		if err != nil {
+			log.Println("info: could not create a review.")
+			return false, err
+		}
+
 	}
 
 	headSha := *pr.Head.SHA
@@ -261,6 +280,15 @@ func commentAsPostponed(ctx context.Context, issueSvc *github.IssuesService, own
 }
 
 func Contains(s []string, e string) (bool, int) {
+	for i, v := range s {
+		if e == v {
+			return true, i
+		}
+	}
+	return false, -1
+}
+
+func containsGitHubUser(s []*github.User, e *github.User) (bool, int) {
 	for i, v := range s {
 		if e == v {
 			return true, i
