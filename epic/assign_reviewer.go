@@ -8,11 +8,12 @@ import (
 	"github.com/google/go-github/github"
 )
 
-func AssignReviewer(ctx context.Context, client *github.Client, ev *github.IssueCommentEvent, assignees []string) (bool, error) {
+func AssignReviewer(ctx context.Context, client *github.Client, ev *github.IssueCommentEvent, reviewers []string) (bool, error) {
 	log.Printf("info: Start: assign the reviewer by %v\n", *ev.Comment.ID)
 	defer log.Printf("info: End: assign the reviewer by %v\n", *ev.Comment.ID)
 
 	issueSvc := client.Issues
+	pullReqSvc := client.PullRequests
 
 	repoOwner := *ev.Repo.Owner.Login
 	log.Printf("debug: repository owner is %v\n", repoOwner)
@@ -35,11 +36,23 @@ func AssignReviewer(ctx context.Context, client *github.Client, ev *github.Issue
 		return false, nil
 	}
 
-	log.Printf("debug: assignees is %v\n", assignees)
+	log.Printf("debug: assignees is %v\n", reviewers)
 
-	_, _, err := issueSvc.AddAssignees(ctx, repoOwner, repo, issueNum, assignees)
+	if containsPullReqOwner, index := Contains(reviewers, *ev.Issue.User.Login); containsPullReqOwner {
+		pullReqOwner := []string{reviewers[index]}
+		removeSliceElement(reviewers, reviewers[index])
+		_, _, err := issueSvc.AddAssignees(ctx, repoOwner, repo, issueNum, pullReqOwner)
+		if err != nil {
+			log.Println("info: could not change asignees.")
+			return false, err
+		}
+	}
+
+	requestedReviewers := github.ReviewersRequest{Reviewers: reviewers}
+
+	_, _, err := pullReqSvc.RequestReviewers(ctx, repoOwner, repo, issueNum, requestedReviewers)
 	if err != nil {
-		log.Println("info: could not change assignees.")
+		log.Println("info: could not change reviewers.")
 		return false, err
 	}
 
@@ -55,11 +68,12 @@ func AssignReviewer(ctx context.Context, client *github.Client, ev *github.Issue
 	return true, nil
 }
 
-func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github.PullRequestEvent, assignees []string) (bool, error) {
+func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github.PullRequestEvent, reviewers []string) (bool, error) {
 	log.Printf("info: Start: assign the reviewer by %v\n", *ev.Number)
 	defer log.Printf("info: End: assign the reviewer by %v\n", *ev.Number)
 
 	issueSvc := client.Issues
+	pullReqSvc := client.PullRequests
 
 	repoOwner := *ev.Repo.Owner.Login
 	log.Printf("debug: repository owner is %v\n", repoOwner)
@@ -74,11 +88,23 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 		return false, nil
 	}
 
-	log.Printf("debug: assignees is %v\n", assignees)
+	log.Printf("debug: reviewers is %v\n", reviewers)
 
-	_, _, err := issueSvc.AddAssignees(ctx, repoOwner, repo, pullReqNum, assignees)
+	if containsPullReqOwner, index := Contains(reviewers, *ev.PullRequest.User.Login); containsPullReqOwner {
+		pullReqOwner := []string{reviewers[index]}
+		removeSliceElement(reviewers, reviewers[index])
+		_, _, err := issueSvc.AddAssignees(ctx, repoOwner, repo, pullReqNum, pullReqOwner)
+		if err != nil {
+			log.Println("info: could not change asignees.")
+			return false, err
+		}
+	}
+
+	requestedReviewers := github.ReviewersRequest{Reviewers: reviewers}
+
+	_, _, err := pullReqSvc.RequestReviewers(ctx, repoOwner, repo, pullReqNum, requestedReviewers)
 	if err != nil {
-		log.Println("info: could not change assignees.")
+		log.Println("info: could not change reviewers.")
 		return false, err
 	}
 
@@ -92,4 +118,14 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	log.Println("info: Complete assign the reviewer with no errors.")
 
 	return true, nil
+}
+
+func removeSliceElement(strings []string, search string) []string {
+	result := []string{}
+	for _, v := range strings {
+		if v != search {
+			result = append(result, v)
+		}
+	}
+	return result
 }
