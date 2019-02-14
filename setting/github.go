@@ -4,7 +4,7 @@ type GithubSetting struct {
 	BotName      string   `toml:"botname"`
 	Token        string   `toml:"api_token"`
 	HookSecret   string   `toml:"webhook_secret"`
-	Repositories []string `toml:"accepted_repositoies"`
+	Repositories []string `toml:"accepted_repositories"`
 
 	acceptedRepos map[string]bool
 }
