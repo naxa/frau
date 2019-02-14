@@ -42,10 +42,16 @@ jobs:
       - checkout
       - run: go get -u github.com/mitchellh/gox
       - run: go get -u github.com/tcnksm/ghr
-      - run: go get -u github.com/stevenmatthewt/semantics
+      - run: go get -u github.com/stevenmatthewt/semantics 
       - run:
           name: cross compile
           command: |
+            if [ ! -d vendor ]; then
+              if ! type dep >/dev/null 2>&1; then
+                go get github.com/golang/dep/cmd/dep
+              fi
+              dep ensure
+            fi
             gox -os="linux darwin windows" -arch="amd64" -output="dist/frau_{{.OS}}_{{.Arch}}"
             cd dist/ && gzip *
       - add_ssh_keys:
@@ -64,10 +70,11 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore: master
       - deploy:
-          requires:
-            - build
           filters:
             branches:
               only: master
