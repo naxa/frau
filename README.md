@@ -1,6 +1,6 @@
 # popuko
 
-[![Build Status (master)](https://travis-ci.org/JohnTitor/frau.svg?branch=master)](https://travis-ci.org/JohnTitor/frau)
+[![Build Status (master)](https://travis-ci.org/student-kyushu/frau.svg?branch=master)](https://travis-ci.org/student-kyushu/frau)
 
 ## What is this?
 
