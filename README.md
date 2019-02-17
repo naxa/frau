@@ -1,6 +1,7 @@
 # popuko
 
 [![Build Status (master)](https://travis-ci.org/student-kyushu/frau.svg?branch=master)](https://travis-ci.org/student-kyushu/frau)
+[![CircleCI](https://circleci.com/gh/student-kyushu/frau/tree/master.svg?style=svg)](https://circleci.com/gh/student-kyushu/frau/tree/master)
 
 ## What is this?
 
