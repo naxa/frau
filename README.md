@@ -9,7 +9,7 @@
 
 frau is a very cute and useful GitHub bot.
 
-She can do as follow:
+She can do as follows:
 
 * merge a pull request automatically
 * assign someone to review a pull request
@@ -17,9 +17,9 @@ She can do as follow:
 
 ## Motivation
 
-To just go for it is student rights, we decided to introduce bots and service to our project.
+To just go for it is student rights, we decided to introduce bots and services to our projects.
 
-frau is one of our projects and trying. She makes our development process useful. At first, we were going to use bors, or popuko as it is, however, we wanted more experience and incentive. And we thought some features we needed weren't suitable for popuko's policy. Therefore, we forked popuko and started to develop.
+frau is one of our projects and tries. She makes our development process useful. At first, we were going to use bors, or popuko as it is, however, we wanted more experience and incentive. And we thought some features we needed weren't suitable for popuko's policy. Therefore, we forked popuko and started to develop.
 
 ## Features
 
