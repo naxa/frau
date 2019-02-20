@@ -3,13 +3,14 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.11.5
-        environment:
-          GO111MODULE: "ON"
+    working_directory: /go/src/github.com/student-kyushu/frau
+    environment:
+      GO111MODULE: "ON"
     steps:
       - checkout
       - restore_cache:
           keys:
-            - go-mod-v1-{{ checksum "go.sum" }}
+            - go-mod-{{ checksum "go.sum" }}/1
       - run:
           name: run build
           command: |
@@ -21,7 +22,7 @@ jobs:
             # go vet ./...
             go test -v ./...
       - save_cache:
-          key: go-mod-v1-{{ checksum "go.sum" }}
+          key: go-mod-{{ checksum "go.sum" }}/1
           paths:
             - "/go/pkg/mod"
   deploy:
@@ -30,8 +31,8 @@ jobs:
     working_directory: /go/src/github.com/student-kyushu/frau
     steps:
       - checkout
-      - run: go get -u github.com/mitchellh/gox
-      - run: go get -u github.com/tcnksm/ghr
+      - run: GO111MODULE=off go get -u github.com/mitchellh/gox
+      - run: GO111MODULE=off go get -u github.com/tcnksm/ghr
       - run:
           name: cross compile
           command: |
