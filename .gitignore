@@ -2,9 +2,7 @@
 vendor/
 
 # Exec binary
-frau
-frau_*
-frau.*
+frau*
 
 # config file
 config.toml
