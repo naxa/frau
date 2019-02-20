@@ -1,24 +1,22 @@
 language: go
 
 go:
-    - "1.11"
-    - master
+  - "1.11.x"
+
+cache:
+  directories:
+    - $HOME/gopath/pkg/mod
 
 branches:
-    only:
-        - auto
-        - master
+  only:
+    - auto
+    - master
 
-matrix:
-    allow_failures:
-        - go: master
-
-before_install:
-    # https://github.com/golang/dep
-    - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+env:
+  - GO111MODULE=on
 
 script:
-    - make travis -j 8
+  - go test -v ./...
 
 notifications:
-    email: false
+  email: false
