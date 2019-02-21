@@ -34,27 +34,31 @@ Almost features are based on popuko, see [here](https://github.com/voyagegroup/p
 
 ### Build & Launch the Application
 
-1. This requires that [`github.com/golang/dep`](https://github.com/golang/dep) has been installed.
-2. Build from the source.
-    * Run these steps:
-      1. `make bootstrap`.
-      2. `make build` or `make build_linux_x64`.
-    * Run `make help` to see more details.
-    * You also can do `go get`.
-3. Create the config directory.
+Please get binary from [here](https://github.com/student-kyushu/frau/releases) or build by yourself.
+
+#### Build process
+
+1. This requires that [`Go`](https://github.com/golang/go) and [`Git`](https://git-scm.com/) have been installed.
+2. Build from the source. Run these steps:
+    1. `git clone https://github.com/student-kyushu/frau.git`
+    2. `cd frau && go build`
+
+#### Launch process
+
+1. Create the config directory.
     * By default, this app uses `$XDG_CONFIG_HOME/frau/` as the config dir.
-      (If you don't set `$XDG_CONFIG_HOME` environment variable, this use `~/.config/frau/`.)
+        (If you don't set `$XDG_CONFIG_HOME` environment variable, this use `~/.config/frau/`.)
     * You can configure the config directory by `--config-base-dir`
-4. Set `config.toml` to the config directory.
+2. Set `config.toml` to the config directory.
     * Let's copy from [`./example.config.toml`](./example.config.toml)
-5. Start the exec binary.
+3. Start the exec binary.
     * This app dumps all logs into stdout & stderr.
     * If you'd like to use TLS, then provide `--tls`, `--cert`, and `--key` options.
 
 #### Set up for your repository in GitHub
 
 1. Set the account (or the team which it belonging to) which this app uses as a collaborator
-   for your repository (requires __write__ priviledge).
+    for your repository (requires __write__ priviledge).
 2. Add `OWNERS.json` file to the root of your repository.
     * Please see [`OwnersFile`](./setting/ownersfile.go) about the detail.
     * The example is [here](./OWNERS.json).
