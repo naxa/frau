@@ -29,6 +29,8 @@ jobs:
     docker:
       - image: circleci/golang:1.11.5
     working_directory: /go/src/github.com/student-kyushu/frau
+    environment:
+      GO111MODULE: "ON"
     steps:
       - checkout
       - run: GO111MODULE=off go get -u github.com/mitchellh/gox
