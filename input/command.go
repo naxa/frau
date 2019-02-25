@@ -57,6 +57,14 @@ func (s *AcceptChangeByOthersCommand) BotName() string {
 	return s.botName
 }
 
+type AcceptChangeOnReview struct {
+	BotNameForReview string
+}
+
+func (s *AcceptChangeOnReview) BotName() string {
+	return s.BotNameForReview
+}
+
 type AssignReviewerCommand struct {
 	Reviewer []string
 }
