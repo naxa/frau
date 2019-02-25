@@ -301,7 +301,7 @@ func (srv *AppServer) processPullRequestReviewEvent(ctx context.Context, ev *git
 		return false, fmt.Errorf("debug: cannot get repositoryInfo")
 	}
 
-	if action == "submitted" && state == "accepted" {
+	if action == "submitted" && state == "approved" {
 		commander := epic.AcceptCommand{
 			Owner:         repoOwner,
 			Name:          repoName,
