@@ -128,7 +128,6 @@ func (c *AcceptCommand) acceptChangeset(ctx context.Context, ev *github.IssueCom
 
 	labels := operation.AddAwaitingMergeLabel(currentLabels)
 
-	// https://github.com/nekoya/popuko/blob/master/web.py
 	_, _, err = issueSvc.ReplaceLabelsForIssue(ctx, repoOwner, repoName, issue, labels)
 	if err != nil {
 		log.Println("info: could not change labels by the issue")
