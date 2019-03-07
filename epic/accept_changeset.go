@@ -216,7 +216,7 @@ func commentApprovedSha(
 	case *input.AcceptChangeOnReview:
 		reviewers = fmt.Sprintf("`%v`", sender)
 	default:
-		log.Printf("error: %+v is not handled.", cmd)
+		log.Printf("error: %+v is not handled.\n", cmd)
 		return false
 	}
 

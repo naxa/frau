@@ -79,7 +79,7 @@ func IsRelatedToMaster(pr *github.PullRequest, owner, master string) bool {
 		}
 	} else {
 		if *baseLabel != master {
-			log.Printf("info: #%v's base is `%v` but our master is `%v`.", *pr.Number, *baseLabel, master)
+			log.Printf("info: #%v's base is `%v` but our master is `%v`.\n", *pr.Number, *baseLabel, master)
 			return false
 		}
 	}

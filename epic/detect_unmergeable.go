@@ -99,7 +99,7 @@ func markUnmergeable(ctx context.Context, wg *sync.WaitGroup, info *markUnmergea
 	}
 
 	if !operation.IsRelatedToMaster(pr, repoOwner, masterBranchName) {
-		log.Printf("info: #%v is not related to `%v` branch", number, masterBranchName)
+		log.Printf("info: #%v is not related to `%v` branch\n", number, masterBranchName)
 		return
 	}
 
