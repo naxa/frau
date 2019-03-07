@@ -92,12 +92,3 @@ Please get binary from [here](https://github.com/student-kyushu/frau/releases) o
 We welcome your contributing, thanks!
 
 See [CONTRIBUTING.md](https://github.com/student-kyushu/frau/blob/master/CONTRIBUTING.md)
-
-[homu]: https://github.com/barosl/homu
-[servo-homu]: https://github.com/servo/homu
-[highfive]: https://github.com/servo/highfive
-[bors.tech]: https://bors.tech/
-[github-rust-repo]: https://github.com/rust-lang/
-[github-servo]: https://github.com/servo
-[graydon's-entry]: http://graydon2.dreamwidth.org/1597.html
-[bors-ng]: https://github.com/bors-ng/bors-ng
