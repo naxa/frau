@@ -34,7 +34,7 @@ func (c *AcceptCommand) AcceptChangesetByOthers(ctx context.Context, ev *github.
 	defer log.Printf("info: End: merge the pull request by %v\n", *ev.Comment.ID)
 
 	if c.BotName != cmd.BotName() {
-		log.Printf("info: this command works only if target user is actual our bot.")
+		log.Println("info: this command works only if target user is actual our bot.")
 		return false, nil
 	}
 
@@ -79,7 +79,7 @@ func (c *AcceptCommand) AcceptChangesetByReviewer(ctx context.Context, ev *githu
 	defer log.Printf("info: End: merge the pull request by %v\n", *ev.Comment.ID)
 
 	if c.BotName != cmd.BotName() {
-		log.Printf("info: this command works only if target user is actual our bot.")
+		log.Println("info: this command works only if target user is actual our bot.")
 		return false, nil
 	}
 
