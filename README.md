@@ -1,6 +1,5 @@
-# popuko
+# frau
 
-[![Build Status (master)](https://travis-ci.org/student-kyushu/frau.svg?branch=master)](https://travis-ci.org/student-kyushu/frau)
 [![CircleCI](https://circleci.com/gh/student-kyushu/frau/tree/master.svg?style=svg)](https://circleci.com/gh/student-kyushu/frau/tree/master)
 
 ## What is this?
@@ -25,10 +24,11 @@ frau is one of our projects and tries. She makes our development process useful.
 
 Almost features are based on popuko, see [here](https://github.com/voyagegroup/popuko#features). Only the features we added are shown.
 
-* parse one by one line, not only first line
-* replace `me` with `reviewer` when used `r=me`
-* read not just only comments but also description of a pull request
-* see label `S-do-not-merge`
+* parses one by one line, not only first line (#11)
+* replaces `me` with `reviewer` when used `r=me` (#20)
+* reads not just only comments but also description of a pull request (#23)
+* sees label `S-do-not-merge` (#32)
+* queues a pull request approved on review (#50)
 
 ## Setup Instructions
 
