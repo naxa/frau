@@ -82,6 +82,18 @@ func (srv *AppServer) handleGithubHook(rw http.ResponseWriter, req *http.Request
 		srv.processPullRequestEvent(ctx, event)
 		rw.WriteHeader(http.StatusOK)
 		return
+	case *github.PullRequestReviewEvent:
+		ok, err := srv.processPullRequestReviewEvent(ctx, event)
+		rw.WriteHeader(http.StatusOK)
+		if ok {
+			io.WriteString(rw, "result: \n")
+		}
+
+		if err != nil {
+			log.Printf("info: %v\n", err)
+			io.WriteString(rw, err.Error())
+		}
+		return
 	default:
 		rw.WriteHeader(http.StatusOK)
 		log.Println("warn: Unsupported type events")
@@ -267,6 +279,44 @@ func (srv *AppServer) processPullRequestEvent(ctx context.Context, ev *github.Pu
 	}
 
 	epic.RemoveAllStatusLabel(ctx, srv.githubClient, repo, pr)
+}
+
+func (srv *AppServer) processPullRequestReviewEvent(ctx context.Context, ev *github.PullRequestReviewEvent) (bool, error) {
+	log.Println("info: Start: processPullRequestReviewEvent")
+	defer log.Println("info: End: processPullRequestReviewEvent")
+
+	action := *ev.Action
+	repoOwner := *ev.Repo.Owner.Login
+	repoName := *ev.Repo.Name
+	state := *ev.Review.State
+
+	if !srv.setting.AcceptRepo(repoOwner, repoName) {
+		n := repoOwner + "/" + repoName
+		log.Printf("======= error: =======\n This event is from an unaccepted repository: %v\n==============", n)
+		return false, fmt.Errorf("%v is not accepted", n)
+	}
+
+	repoInfo := epic.GetRepositoryInfo(ctx, srv.githubClient.Repositories, repoOwner, repoName)
+	if repoInfo == nil {
+		return false, fmt.Errorf("debug: cannot get repositoryInfo")
+	}
+
+	if action == "submitted" && state == "approved" {
+		commander := epic.AcceptCommand{
+			Owner:         repoOwner,
+			Name:          repoName,
+			Client:        srv.githubClient,
+			BotName:       config.BotNameForGithub(),
+			Info:          repoInfo,
+			AutoMergeRepo: srv.autoMergeRepo,
+		}
+		cmd := &input.AcceptChangeOnReview{
+			BotNameForReview: config.BotNameForGithub(),
+		}
+		return commander.AcceptChangesetOnReview(ctx, ev, cmd)
+	}
+
+	return false, fmt.Errorf("No operations which this bot should handle")
 }
 
 func createGithubClient(config *setting.Settings) *github.Client {

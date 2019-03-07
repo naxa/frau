@@ -51,7 +51,6 @@ func (c *CancelApprovedCommand) CancelApprovedChangeSet(ctx context.Context, ev 
 	if currentLabels != nil {
 		labels := operation.AddAwaitingReviewLabel(currentLabels)
 
-		// https://github.com/nekoya/popuko/blob/master/web.py
 		_, _, err = c.Client.Issues.ReplaceLabelsForIssue(ctx, owner, name, number, labels)
 		if err != nil {
 			log.Printf("info: could not change labels by the issue: %v\n", err)
