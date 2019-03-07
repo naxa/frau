@@ -38,7 +38,7 @@ type OwnersFile struct {
 
 	// The name of the branch which is used for "Auto-Merging" to test changesets
 	// before merging it into upstream. The default value is defined as `autoBranchName`.
-	AutoBranchName string `json:"auto_branch.branch_name.auto",omitempty`
+	AutoBranchName string `json:"auto_branch.branch_name.auto,omitempty"`
 }
 
 func (o *OwnersFile) reviewers() (ok bool, set *ReviewerSet) {

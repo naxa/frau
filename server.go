@@ -242,17 +242,17 @@ func (srv *AppServer) processPullRequestEvent(ctx context.Context, ev *github.Pu
 		body := *ev.PullRequest.Body
 		ok, cmd := input.ParseCommand(body)
 		if !ok {
-			fmt.Errorf("No operations which this bot should handle")
+			log.Println("No operations which this bot should handle")
 			return
 		}
 		if cmd == nil {
-			fmt.Errorf("error: unexpected result of parsing comment body")
+			log.Println("error: unexpected result of parsing comment body")
 			return
 		}
 
 		repoInfo := epic.GetRepositoryInfo(ctx, srv.githubClient.Repositories, repoOwner, repoName)
 		if repoInfo == nil {
-			fmt.Errorf("debug: cannot get repositoryInfo")
+			log.Println("debug: cannot get repositoryInfo")
 			return
 		}
 
@@ -261,7 +261,7 @@ func (srv *AppServer) processPullRequestEvent(ctx context.Context, ev *github.Pu
 			epic.AssignReviewerFromPR(ctx, srv.githubClient, ev, cmd.Reviewer)
 			return
 		default:
-			fmt.Errorf("error: unreachable")
+			log.Println("error: unreachable")
 			return
 		}
 	}

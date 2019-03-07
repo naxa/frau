@@ -8,7 +8,7 @@ import (
 
 type AutoMergeQRepo struct {
 	mux     sync.Mutex
-	repo    fileRepository
+	repo    *fileRepository
 	qHandle map[string]*AutoMergeQueueHandle
 }
 
@@ -20,7 +20,7 @@ func NewAutoMergeQRepo(root string) *AutoMergeQRepo {
 
 	return &AutoMergeQRepo{
 		mux:     sync.Mutex{},
-		repo:    *repo,
+		repo:    repo,
 		qHandle: make(map[string]*AutoMergeQueueHandle),
 	}
 }
