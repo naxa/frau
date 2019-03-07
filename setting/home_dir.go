@@ -1,11 +1,9 @@
 package setting
 
 import (
-	"errors"
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 )
 
 const XdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
@@ -34,7 +32,7 @@ func getXdgConfigHome() string {
 	if v == "" {
 		log.Println("info: try to use `~/.config` as $XDG_CONFIG_HOME")
 
-		home, err := getHome()
+		home, err := os.UserHomeDir()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -53,22 +51,4 @@ func getXdgConfigHome() string {
 	}
 
 	return path
-}
-
-func getHome() (string, error) {
-	isWin := runtime.GOOS == "windows"
-	var HomeKey string
-	if isWin {
-		HomeKey = "USERPROFILE"
-	} else {
-		HomeKey = "HOME"
-	}
-
-	h := os.Getenv(HomeKey)
-	home, err := filepath.Abs(h)
-	if home == "" {
-		err = errors.New("not found $" + HomeKey)
-	}
-
-	return home, err
 }
