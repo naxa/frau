@@ -30,7 +30,7 @@ const prefixWebHookPath = "/github"
 func (srv *AppServer) handleGithubHook(rw http.ResponseWriter, req *http.Request) {
 	log.Println("info: Start: handle GitHub WebHook")
 	log.Printf("info: Path is %v\n", req.URL.Path)
-	defer log.Println("info End: handle GitHub WebHook")
+	defer log.Println("info: End: handle GitHub WebHook")
 
 	if req.Method != "POST" {
 		rw.WriteHeader(http.StatusMethodNotAllowed)
