@@ -2,6 +2,7 @@ package epic
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"math/rand"
 	"time"
@@ -61,6 +62,8 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	log.Printf("info: Start: assign the reviewer by %v\n", *ev.Number)
 	defer log.Printf("info: End: assign the reviewer by %v\n", *ev.Number)
 
+	isRandom := false
+
 	issueSvc := client.Issues
 	repoSvc := client.Repositories
 
@@ -97,6 +100,7 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 		rand.Seed(time.Now().UnixNano())
 		i := rand.Intn(len(reviewers))
 		assignees = append(assignees, reviewers[i])
+		isRandom = true
 	}
 
 	log.Printf("debug: assignees is %v\n", assignees)
@@ -112,6 +116,14 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	if err != nil {
 		log.Println("info: could not change labels.")
 		return false, err
+	}
+
+	if isRandom {
+		comment := fmt.Sprint(":eggplant: I picked a reviewer randomly, you can use `r?` to overwrite.")
+		if ok := operation.AddComment(ctx, issueSvc, repoOwner, repo, pullReqNum, comment); !ok {
+			log.Println("info: could not create the comment about assigning a reviewer randomly")
+			return false, nil
+		}
 	}
 
 	log.Println("info: Complete assign the reviewer with no errors.")
