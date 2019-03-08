@@ -3,6 +3,8 @@ package epic
 import (
 	"context"
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/google/go-github/github"
 	"github.com/student-kyushu/frau/operation"
@@ -60,6 +62,7 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	defer log.Printf("info: End: assign the reviewer by %v\n", *ev.Number)
 
 	issueSvc := client.Issues
+	repoSvc := client.Repositories
 
 	repoOwner := *ev.Repo.Owner.Login
 	log.Printf("debug: repository owner is %v\n", repoOwner)
@@ -72,6 +75,28 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	currentLabels := operation.GetLabelsByIssue(ctx, issueSvc, repoOwner, repo, pullReqNum)
 	if currentLabels == nil {
 		return false, nil
+	}
+
+	if assignees == nil {
+		log.Println("debug: there are no requested assignees")
+		ok, owners := fetchOwnersFile(ctx, repoSvc, repoOwner, repo)
+		if !ok {
+			log.Println("error: could not handle OWNERS file.")
+			return false, nil
+		}
+		reviewers := owners.ReviewersList()
+		if reviewers == nil {
+			log.Println("info: could not find any reviewers")
+			return false, nil
+		}
+		sender := *ev.Sender.Login
+		_, index := contains(reviewers, sender)
+		if index != -1 && len(reviewers) != 1 {
+			reviewers = remove(reviewers, index)
+		}
+		rand.Seed(time.Now().UnixNano())
+		i := rand.Intn(len(reviewers))
+		assignees = append(assignees, reviewers[i])
 	}
 
 	log.Printf("debug: assignees is %v\n", assignees)
@@ -92,4 +117,11 @@ func AssignReviewerFromPR(ctx context.Context, client *github.Client, ev *github
 	log.Println("info: Complete assign the reviewer with no errors.")
 
 	return true, nil
+}
+
+func remove(s []string, i int) []string {
+	if i >= len(s) {
+		return s
+	}
+	return append(s[:i], s[i+1:]...)
 }
