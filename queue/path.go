@@ -4,6 +4,7 @@ import (
 	"errors"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -19,6 +20,13 @@ func createAbs(root, name string) (p string, err error) {
 		return "", errors.New("invalid character in file path")
 	}
 
+	if runtime.GOOS == "windows" {
+		f := filepath.Join(filepath.FromSlash(path.Clean(root)), filepath.FromSlash(path.Clean("/"+name)))
+		if f == "\\" {
+			return "", errors.New("the result is `\\`")
+		}
+		return f, nil
+	}
 	f := filepath.Join(filepath.FromSlash(path.Clean("/"+root)), filepath.FromSlash(path.Clean("/"+name)))
 	if f == "/" {
 		return "", errors.New("the result is `/`")
