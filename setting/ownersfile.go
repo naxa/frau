@@ -105,3 +105,23 @@ func (o *OwnersFile) ToRepoInfo() (bool, *RepositoryInfo) {
 	}
 	return true, &info
 }
+
+func (o *OwnersFile) ReviewersList() []string {
+	var list []string
+
+	if !o.RegardAllAsReviewer {
+		for _, v := range o.RawReviewers {
+			n, ok := v.(string)
+			if !ok {
+				log.Printf("debug: %v\n", o.RawReviewers)
+				return nil
+			}
+
+			list = append(list, n)
+		}
+	} else {
+		log.Println("debug: This `OwnersFile` provides reviewer privilege for all users who can comment to this repo.")
+	}
+
+	return list
+}

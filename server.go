@@ -242,7 +242,8 @@ func (srv *AppServer) processPullRequestEvent(ctx context.Context, ev *github.Pu
 		body := *ev.PullRequest.Body
 		ok, cmd := input.ParseCommand(body)
 		if !ok {
-			log.Println("No operations which this bot should handle")
+			log.Println("cannot find command, so assign a reviewer randomly")
+			epic.AssignReviewerFromPR(ctx, srv.githubClient, ev, nil)
 			return
 		}
 		if cmd == nil {
