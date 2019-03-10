@@ -9,57 +9,57 @@ func Test_createAbs_ValidCase(t *testing.T) {
 		expected string
 	}
 	list := []Testcase{
-		Testcase{
+		{
 			root:     "/a",
 			path:     "b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     "/b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     ".b",
 			expected: "/a/.b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     "../~/b",
 			expected: "/a/~/b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     "./b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     "../../b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "/a",
 			path:     "..",
 			expected: "/a",
 		},
-		Testcase{
+		{
 			root:     "..",
 			path:     "/a",
 			expected: "/a",
 		},
-		Testcase{
+		{
 			root:     "a",
 			path:     "/b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "a",
 			path:     "../b",
 			expected: "/a/b",
 		},
-		Testcase{
+		{
 			root:     "a",
 			path:     "../~/b",
 			expected: "/a/~/b",
@@ -83,39 +83,39 @@ func Test_createAbs_InvalidCase(t *testing.T) {
 		path string
 	}
 	list := []Testcase{
-		Testcase{
+		{
 			root: "",
 			path: "",
 		},
-		Testcase{
+		{
 			root: "/a",
 			path: "",
 		},
-		Testcase{
+		{
 			root: "/",
 			path: "",
 		},
-		Testcase{
+		{
 			root: "",
 			path: "/",
 		},
-		Testcase{
+		{
 			root: "/",
 			path: "/",
 		},
-		Testcase{
+		{
 			root: ".",
 			path: ".",
 		},
-		Testcase{
+		{
 			root: ".",
 			path: "..",
 		},
-		Testcase{
+		{
 			root: "..",
 			path: ".",
 		},
-		Testcase{
+		{
 			root: "..",
 			path: "..",
 		},
