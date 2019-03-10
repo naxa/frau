@@ -83,7 +83,7 @@ func (c *AcceptCommand) acceptChangesetOnReview(ctx context.Context, ev *github.
 	}
 
 	headSha := *pr.Head.SHA
-	if ok := commentApprovedSha(ctx, cmd, issueSvc, repoOwner, repoName, pullrequestNumber, headSha, sender); !ok {
+	if ok := c.commentApprovedSha(ctx, cmd, issueSvc, repoOwner, repoName, pullrequestNumber, headSha, sender); !ok {
 		log.Println("info: could not create the comment to declare the head is approved.")
 		return false, err
 	}
