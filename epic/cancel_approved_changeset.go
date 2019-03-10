@@ -30,7 +30,7 @@ func (c *CancelApprovedCommand) CancelApprovedChangeSet(ctx context.Context, ev 
 	defer log.Printf("info: End: merge the pull request by %v\n", id)
 
 	if c.BotName != c.Cmd.BotName() {
-		log.Printf("info: this command works only if target user is actual our bot.")
+		log.Println("info: this command works only if target user is actual our bot.")
 		return false, nil
 	}
 
