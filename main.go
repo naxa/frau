@@ -16,11 +16,6 @@ import (
 
 var config *setting.Settings
 
-var (
-	revision  string
-	builddate string
-)
-
 func main() {
 	var configDir string
 	{
@@ -82,8 +77,7 @@ func main() {
 	}
 
 	log.Println("===== frau =====")
-	log.Printf("version (git revision): %s\n", revision)
-	log.Printf("builddate: %s\n", builddate)
+	log.Printf("version: %s (rev: %s)\n", version, revision)
 	log.Printf("use TLS: %v\n", useTLS)
 	if useTLS {
 		log.Printf("cert: %v\n", certPath)
