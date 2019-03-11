@@ -1,6 +1,7 @@
 # frau
 
 [![CircleCI](https://circleci.com/gh/student-kyushu/frau/tree/master.svg?style=svg)](https://circleci.com/gh/student-kyushu/frau/tree/master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/student-kyushu/frau)](https://goreportcard.com/report/github.com/student-kyushu/frau)
 
 ## What is this?
 
