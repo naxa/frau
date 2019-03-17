@@ -142,7 +142,7 @@ func (c *AcceptCommand) acceptChangeset(ctx context.Context, ev *github.IssueCom
 	}
 
 	headSha := *pr.Head.SHA
-	if ok := commentApprovedSha(ctx, cmd, issueSvc, repoOwner, repoName, issue, headSha, sender); !ok {
+	if ok := c.commentApprovedSha(ctx, cmd, issueSvc, repoOwner, repoName, issue, headSha, sender); !ok {
 		log.Println("info: could not create the comment to declare the head is approved.")
 		return false, err
 	}
@@ -188,7 +188,7 @@ func (c *AcceptCommand) acceptChangeset(ctx context.Context, ev *github.IssueCom
 	return true, nil
 }
 
-func commentApprovedSha(
+func (c *AcceptCommand) commentApprovedSha(
 	ctx context.Context,
 	cmd input.AcceptChangesetCommand,
 	issues *github.IssuesService,
@@ -203,8 +203,16 @@ func commentApprovedSha(
 	case *input.AcceptChangeByOthersCommand:
 		{
 			list := make([]string, 0, len(cmd.Reviewer))
-			for _, name := range cmd.Reviewer {
-				list = append(list, fmt.Sprintf("`%v`", name))
+			for _, username := range cmd.Reviewer {
+				if !c.Info.IsReviewer(username) {
+					log.Printf("info: %v is not a reviewer\n", username)
+					comment := fmt.Sprintf(":no_entry: `%v` isn't included in OWNERS.json as a reviewer", username)
+					if ok := operation.AddComment(ctx, issues, owner, name, number, comment); !ok {
+						log.Println("info: could not create the comment to declare the head is approved")
+					}
+					return false
+				}
+				list = append(list, fmt.Sprintf("`%v`", username))
 			}
 			if containsMe, index := contains(list, "`me`"); containsMe {
 				list[index] = sender
