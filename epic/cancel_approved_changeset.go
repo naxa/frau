@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v24/github"
 
 	"github.com/student-kyushu/frau/input"
 	"github.com/student-kyushu/frau/operation"
