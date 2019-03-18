@@ -83,7 +83,7 @@ func (s *fileRepository) save(owner string, name string, queue *AutoMergeQueue) 
 	defer mux.Unlock()
 
 	{
-		dir := path.Dir(file)
+		dir := filepath.Dir(file)
 		if !exists(dir) {
 			if err := os.Mkdir(dir, 0775); err != nil {
 				log.Println("error: cannot create the config home dir.")
