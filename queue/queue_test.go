@@ -37,13 +37,13 @@ func Test_AutoMergeQueue_RemoveAwaiting2(t *testing.T) {
 
 	queue := AutoMergeQueue{}
 	list := []*AutoMergeQueueItem{
-		&AutoMergeQueueItem{
+		{
 			PullRequest: number,
 		},
-		&AutoMergeQueueItem{
+		{
 			PullRequest: number + 1,
 		},
-		&AutoMergeQueueItem{
+		{
 			PullRequest: number + 2,
 		},
 	}

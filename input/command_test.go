@@ -12,26 +12,26 @@ func TestParseCommandValidCaseForAcceptChangeByReviewerCommand(t *testing.T) {
 	}
 
 	list := []TestCase{
-		TestCase{
+		{
 			input:           "@bot r+",
 			expectedBotName: "bot",
 		},
-		TestCase{
+		{
 			input:           "@bot-bot r+",
 			expectedBotName: "bot-bot",
 		},
 
-		TestCase{
+		{
 			input:           "    @bot r+",
 			expectedBotName: "bot",
 		},
 
-		TestCase{
+		{
 			input:           "@bot        r+",
 			expectedBotName: "bot",
 		},
 
-		TestCase{
+		{
 			input: `@bot        r+
 
 
@@ -71,71 +71,71 @@ func TestParseCommandValidCaseForAcceptChangeByOthersCommand(t *testing.T) {
 	}
 
 	list := []TestCase{
-		TestCase{
+		{
 			input:    "@bot r=KoujiroFrau",
 			expected: []string{"KoujiroFrau"},
 		},
-		TestCase{
+		{
 			input:    "  @bot    r=KoujiroFrau  ",
 			expected: []string{"KoujiroFrau"},
 		},
 
-		TestCase{
+		{
 			input:    "@bot r=KoujiroFrau-a",
 			expected: []string{"KoujiroFrau-a"},
 		},
-		TestCase{
+		{
 			input:    "  @bot    r=KoujiroFrau-a ",
 			expected: []string{"KoujiroFrau-a"},
 		},
-		TestCase{
+		{
 			input:    "@bot r=me",
 			sender:   "KoujiroFrau",
 			expected: []string{"KoujiroFrau"},
 		},
 
-		TestCase{
+		{
 			input:    "@bot r=KoujiroFrau,pipimi",
 			expected: []string{"KoujiroFrau", "pipimi"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau,pipimi   ",
 			expected: []string{"KoujiroFrau", "pipimi"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau,  pipimi   ",
 			expected: []string{"KoujiroFrau", "pipimi"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau ,  pipimi   ",
 			expected: []string{"KoujiroFrau", "pipimi"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r= KoujiroFrau ,  pipimi   ",
 			expected: []string{"KoujiroFrau", "pipimi"},
 		},
 
-		TestCase{
+		{
 			input:    "@bot r=KoujiroFrau-a,pipimi-b",
 			expected: []string{"KoujiroFrau-a", "pipimi-b"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau-a,pipimi-b   ",
 			expected: []string{"KoujiroFrau-a", "pipimi-b"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau-a,   pipimi-b   ",
 			expected: []string{"KoujiroFrau-a", "pipimi-b"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r=KoujiroFrau-a  ,   pipimi-b   ",
 			expected: []string{"KoujiroFrau-a", "pipimi-b"},
 		},
-		TestCase{
+		{
 			input:    "  @bot r= KoujiroFrau-a  ,   pipimi-b   ",
 			expected: []string{"KoujiroFrau-a", "pipimi-b"},
 		},
-		TestCase{
+		{
 			input:    "@bot r=me, pipimi",
 			sender:   "KoujiroFrau",
 			expected: []string{"KoujiroFrau", "pipimi"},
@@ -182,53 +182,53 @@ func TestParseCommandValidCaseForAssignReviewerCommand(t *testing.T) {
 	}
 
 	list := []TestCase{
-		TestCase{
+		{
 			input:    "r? @reviewer",
 			expected: []string{"reviewer"},
 		},
-		TestCase{
+		{
 			input:    "r? @reviewer-a",
 			expected: []string{"reviewer-a"},
 		},
-		TestCase{
+		{
 			input:    "  r? @reviewer  ",
 			expected: []string{"reviewer"},
 		},
-		TestCase{
+		{
 			input:    "   r? @reviewer-a   ",
 			expected: []string{"reviewer-a"},
 		},
 
-		TestCase{
+		{
 			input:    "@reviewer r?",
 			expected: []string{"reviewer"},
 		},
-		TestCase{
+		{
 			input:    "@reviewer-a r?",
 			expected: []string{"reviewer-a"},
 		},
-		TestCase{
+		{
 			input:    "   @reviewer  r? ",
 			expected: []string{"reviewer"},
 		},
-		TestCase{
+		{
 			input:    "    @reviewer-a   r?",
 			expected: []string{"reviewer-a"},
 		},
 
-		TestCase{
+		{
 			input:    "r? @reviewer @reviewer2",
 			expected: []string{"reviewer", "reviewer2"},
 		},
-		TestCase{
+		{
 			input:    "r? @reviewer-a @reviewer-b",
 			expected: []string{"reviewer-a", "reviewer-b"},
 		},
-		TestCase{
+		{
 			input:    "  r? @reviewer  @reviewer2",
 			expected: []string{"reviewer", "reviewer2"},
 		},
-		TestCase{
+		{
 			input:    "   r? @reviewer-a   @reviewer-b",
 			expected: []string{"reviewer-a", "reviewer-b"},
 		},
@@ -269,26 +269,26 @@ func TestParseCommandValidCaseForCancelApprovedByReviewerCommand(t *testing.T) {
 	}
 
 	list := []TestCase{
-		TestCase{
+		{
 			input:           "@bot r-",
 			expectedBotName: "bot",
 		},
-		TestCase{
+		{
 			input:           "@bot-bot r-",
 			expectedBotName: "bot-bot",
 		},
 
-		TestCase{
+		{
 			input:           "    @bot r-",
 			expectedBotName: "bot",
 		},
 
-		TestCase{
+		{
 			input:           "@bot        r-",
 			expectedBotName: "bot",
 		},
 
-		TestCase{
+		{
 			input: `@bot        r-
 
 

@@ -54,7 +54,7 @@ func (c *AcceptCommand) AcceptChangesetByOthers(ctx context.Context, ev *github.
 		}
 	}
 
-	log.Printf("info: %v cannnot merge the pull request #%v\n", sender, ev.Issue.GetID())
+	log.Printf("info: %v cannot merge the pull request #%v\n", sender, ev.Issue.GetID())
 	return false, nil
 }
 
