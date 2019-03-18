@@ -215,7 +215,7 @@ func (c *AcceptCommand) commentApprovedSha(
 				list = append(list, fmt.Sprintf("`%v`", username))
 			}
 			if containsMe, index := contains(list, "`me`"); containsMe {
-				list[index] = sender
+				list[index] = fmt.Sprintf("`%v`", sender)
 			}
 			reviewers = strings.Join(list, ", ")
 		}
