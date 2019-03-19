@@ -35,7 +35,6 @@ jobs:
       - checkout
       - run: GO111MODULE=off go get -u github.com/mitchellh/gox
       - run: GO111MODULE=off go get -u github.com/tcnksm/ghr
-      - run: GO111MODULE=off go get -u github.com/Songmu/ghch
       - run:
           name: cross compile
           command: |
@@ -49,7 +48,7 @@ jobs:
           command: |
             tag=$(cat release_tag)
             if [ "$tag" ]; then
-              ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -b $(ghch --format=markdown --next-version=$tag --token=$GITHUB_TOKEN) -replace $tag dist/
+              ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $tag dist/
             else
               echo "Failed to release"
             fi
