@@ -44,9 +44,13 @@ jobs:
           fingerprints:
             - "3a:c9:b6:74:f1:00:90:63:ef:d3:83:1c:be:72:54:14"
       - run:
+          name: run build
+          command: |
+            go build -v
+      - run:
           name: create release
           command: |
-            tag=$(cat release_tag)
+            tag=$(./frau --ver)
             if [ "$tag" ]; then
               ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $tag dist/
             else

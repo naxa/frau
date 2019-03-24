@@ -1,5 +1,5 @@
 package main
 
-const version = "1.0.0"
+const version = "v1.0.0"
 
 var revision = "Devel"

@@ -37,7 +37,17 @@ func main() {
 		c := "Specify the absolute path to the key file. (default: none)"
 		flag.StringVar(&keyFile, "key", "", c)
 	}
+	var printVersion bool
+	{
+		c := "Print current version. (default: false)"
+		flag.BoolVar(&printVersion, "ver", false, c)
+	}
 	flag.Parse()
+
+	if printVersion {
+		fmt.Println(version)
+		os.Exit(0)
+	}
 
 	ok, root := setting.HomeDir(configDir)
 	if !ok {
