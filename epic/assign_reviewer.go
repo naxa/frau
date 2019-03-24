@@ -40,6 +40,19 @@ func AssignReviewer(ctx context.Context, client *github.Client, ev *github.Issue
 
 	log.Printf("debug: assignees is %v\n", assignees)
 
+	presentAssignees := issue.Assignees
+	if len(presentAssignees) != 0 {
+		var presentAssigneesName []string
+		for i := 0; i < len(presentAssignees); i++ {
+			presentAssigneesName = append(presentAssigneesName, *presentAssignees[i].Login)
+		}
+		_, _, err := issueSvc.RemoveAssignees(ctx, repoOwner, repo, issueNum, presentAssigneesName)
+		if err != nil {
+			log.Println("info: could not remove assignees")
+			return false, err
+		}
+	}
+
 	_, _, err := issueSvc.AddAssignees(ctx, repoOwner, repo, issueNum, assignees)
 	if err != nil {
 		log.Println("info: could not change assignees.")
