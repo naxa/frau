@@ -50,7 +50,7 @@ jobs:
       - run:
           name: create release
           command: |
-            tag=$(./frau --ver)
+            tag=$(./frau --version)
             if [ "$tag" ]; then
               ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $tag dist/
             else
