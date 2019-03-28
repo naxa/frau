@@ -16,11 +16,6 @@ import (
 
 var config *setting.Settings
 
-var (
-	revision  string
-	builddate string
-)
-
 func main() {
 	var configDir string
 	{
@@ -42,7 +37,17 @@ func main() {
 		c := "Specify the absolute path to the key file. (default: none)"
 		flag.StringVar(&keyFile, "key", "", c)
 	}
+	var printVersion bool
+	{
+		c := "Print current version. (default: false)"
+		flag.BoolVar(&printVersion, "version", false, c)
+	}
 	flag.Parse()
+
+	if printVersion {
+		fmt.Println(version)
+		os.Exit(0)
+	}
 
 	ok, root := setting.HomeDir(configDir)
 	if !ok {
@@ -82,8 +87,7 @@ func main() {
 	}
 
 	log.Println("===== frau =====")
-	log.Printf("version (git revision): %s\n", revision)
-	log.Printf("builddate: %s\n", builddate)
+	log.Printf("version: %s (rev: %s)\n", version, revision)
 	log.Printf("use TLS: %v\n", useTLS)
 	if useTLS {
 		log.Printf("cert: %v\n", certPath)
