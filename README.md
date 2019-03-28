@@ -23,13 +23,7 @@ frau is one of our projects and tries. She makes our development process useful.
 
 ## Features
 
-Almost features are based on popuko, see [here](https://github.com/voyagegroup/popuko#features). Only the features we added are shown.
-
-* parses one by one line, not only first line (#11)
-* replaces `me` with `reviewer` when used `r=me` (#20)
-* reads not just only comments but also description of a pull request (#23)
-* sees label `S-do-not-merge` (#32)
-* queues a pull request approved on review (#50)
+Almost features are based on popuko, see [popuko's features](https://github.com/voyagegroup/popuko#features) and [frau's CHANGELOG](https://github.com/student-kyushu/frau/blob/master/CHANGELOG.md).
 
 ## Setup Instructions
 
