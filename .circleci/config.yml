@@ -1,70 +1,70 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/golang:1.12.0
-    working_directory: /go/src/github.com/student-kyushu/frau
-    environment:
-      GO111MODULE: "on"
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - go-mod-{{ checksum "go.sum" }}/1
-      - run:
-          name: run build
-          command: |
-            go build -v
-      - run:
-          name: run tests
-          command: |
-            go fmt ./...
-            # go vet ./...
-            go test -v ./...
-      - save_cache:
-          key: go-mod-{{ checksum "go.sum" }}/1
-          paths:
-            - "/go/pkg/mod"
-  deploy:
-    docker:
-      - image: circleci/golang:1.12.0
-    working_directory: /go/src/github.com/student-kyushu/frau
-    environment:
-      GO111MODULE: "on"
-    steps:
-      - checkout
-      - run: GO111MODULE=off go get -u github.com/mitchellh/gox
-      - run: GO111MODULE=off go get -u github.com/tcnksm/ghr
-      - run:
-          name: cross compile
-          command: |
-            gox -os="linux darwin windows" -arch="amd64" -output="dist/frau_{{.OS}}_{{.Arch}}" -ldflags="-X main.revision=$(git rev-parse --short HEAD)"
-            cd dist/ && gzip *
-      - add_ssh_keys:
-          fingerprints:
-            - "3a:c9:b6:74:f1:00:90:63:ef:d3:83:1c:be:72:54:14"
-      - run:
-          name: run build
-          command: |
-            go build -v
-      - run:
-          name: create release
-          command: |
-            tag=$(./frau --version)
-            if [ "$tag" ]; then
-              ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $tag dist/
-            else
-              echo "Failed to release"
-            fi
+    build:
+        docker:
+            - image: circleci/golang:1.13.0
+        working_directory: /go/src/github.com/student-kyushu/frau
+        environment:
+            GO111MODULE: "on"
+        steps:
+            - checkout
+            - restore_cache:
+                  keys:
+                      - go-mod-{{ checksum "go.sum" }}/1
+            - run:
+                  name: run build
+                  command: |
+                      go build -v
+            - run:
+                  name: run tests
+                  command: |
+                      go fmt ./...
+                      # go vet ./...
+                      go test -v ./...
+            - save_cache:
+                  key: go-mod-{{ checksum "go.sum" }}/1
+                  paths:
+                      - "/go/pkg/mod"
+    deploy:
+        docker:
+            - image: circleci/golang:1.13.0
+        working_directory: /go/src/github.com/student-kyushu/frau
+        environment:
+            GO111MODULE: "on"
+        steps:
+            - checkout
+            - run: GO111MODULE=off go get -u github.com/mitchellh/gox
+            - run: GO111MODULE=off go get -u github.com/tcnksm/ghr
+            - run:
+                  name: cross compile
+                  command: |
+                      gox -os="linux darwin windows" -arch="amd64" -output="dist/frau_{{.OS}}_{{.Arch}}" -ldflags="-X main.revision=$(git rev-parse --short HEAD)"
+                      cd dist/ && gzip *
+            - add_ssh_keys:
+                  fingerprints:
+                      - "3a:c9:b6:74:f1:00:90:63:ef:d3:83:1c:be:72:54:14"
+            - run:
+                  name: run build
+                  command: |
+                      go build -v
+            - run:
+                  name: create release
+                  command: |
+                      tag=$(./frau --version)
+                      if [ "$tag" ]; then
+                        ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $tag dist/
+                      else
+                        echo "Failed to release"
+                      fi
 workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: master
-      - deploy:
-          filters:
-            branches:
-              only: master
+    version: 2
+    build-deploy:
+        jobs:
+            - build:
+                  filters:
+                      branches:
+                          ignore: master
+            - deploy:
+                  filters:
+                      branches:
+                          only: master
