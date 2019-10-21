@@ -10,9 +10,9 @@ import (
 
 	"fmt"
 
-	"github.com/student-kyushu/frau/input"
-	"github.com/student-kyushu/frau/operation"
-	"github.com/student-kyushu/frau/queue"
+	"github.com/naxa-jp/frau/input"
+	"github.com/naxa-jp/frau/operation"
+	"github.com/naxa-jp/frau/queue"
 )
 
 func (c *AcceptCommand) AcceptChangesetOnReview(ctx context.Context, ev *github.PullRequestReviewEvent, cmd *input.AcceptChangeOnReview) (bool, error) {

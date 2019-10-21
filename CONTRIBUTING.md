@@ -64,7 +64,7 @@ Recommend to use these:
 
 If you find a security vulnerability, do **NOT** open an issue. Email contact@kyushu.gr.jp instead.
 
-Feature requests and bug reports are filed in https://github.com/student-kyushu/frau/issues. Before submitting a new issue, please search for similar issues. If somebody has encountered similar bug or wanted similar feature, please add your reaction or comment to the issues.💓
+Feature requests and bug reports are filed in https://github.com/naxa-jp/frau/issues. Before submitting a new issue, please search for similar issues. If somebody has encountered similar bug or wanted similar feature, please add your reaction or comment to the issues.💓
 
 ## Community
 

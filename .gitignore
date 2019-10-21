@@ -6,3 +6,6 @@ frau*
 
 # config file
 config.toml
+
+# backup file
+*.bak

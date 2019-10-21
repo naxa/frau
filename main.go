@@ -10,8 +10,8 @@ import (
 
 	"errors"
 
-	"github.com/student-kyushu/frau/queue"
-	"github.com/student-kyushu/frau/setting"
+	"github.com/naxa-jp/frau/queue"
+	"github.com/naxa-jp/frau/setting"
 )
 
 var config *setting.Settings
