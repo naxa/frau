@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             - image: circleci/golang:1.13.0
-        working_directory: /go/src/github.com/student-kyushu/frau
+        working_directory: /go/src/github.com/naxa-jp/frau
         environment:
             GO111MODULE: "on"
         steps:
@@ -28,7 +28,7 @@ jobs:
     deploy:
         docker:
             - image: circleci/golang:1.13.0
-        working_directory: /go/src/github.com/student-kyushu/frau
+        working_directory: /go/src/github.com/naxa-jp/frau
         environment:
             GO111MODULE: "on"
         steps:

@@ -1,7 +1,7 @@
 # frau
 
-[![CircleCI](https://circleci.com/gh/student-kyushu/frau/tree/master.svg?style=svg)](https://circleci.com/gh/student-kyushu/frau/tree/master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/student-kyushu/frau)](https://goreportcard.com/report/github.com/student-kyushu/frau)
+[![CircleCI](https://circleci.com/gh/naxa-jp/frau/tree/master.svg?style=svg)](https://circleci.com/gh/naxa-jp/frau/tree/master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/naxa-jp/frau)](https://goreportcard.com/report/github.com/naxa-jp/frau)
 
 ## What is this?
 
@@ -23,19 +23,19 @@ frau is one of our projects and tries. She makes our development process useful.
 
 ## Features
 
-Almost features are based on popuko, see [popuko's features](https://github.com/voyagegroup/popuko#features) and [frau's CHANGELOG](https://github.com/student-kyushu/frau/blob/master/CHANGELOG.md).
+Almost features are based on popuko, see [popuko's features](https://github.com/voyagegroup/popuko#features) and [frau's CHANGELOG](https://github.com/naxa-jp/frau/blob/master/CHANGELOG.md).
 
 ## Setup Instructions
 
 ### Build & Launch the Application
 
-Please get binary from [here](https://github.com/student-kyushu/frau/releases) or build by yourself.
+Please get binary from [here](https://github.com/naxa-jp/frau/releases) or build by yourself.
 
 #### Build process
 
 1. This requires that [`Go`](https://github.com/golang/go) and [`Git`](https://git-scm.com/) have been installed.
 2. Build from the source. Run these steps:
-    1. `git clone https://github.com/student-kyushu/frau.git`
+    1. `git clone https://github.com/naxa-jp/frau.git`
     2. `cd frau && go build`
 
 #### Launch process
@@ -80,10 +80,10 @@ Please get binary from [here](https://github.com/student-kyushu/frau/releases) o
 
 ## License
 
-[The MIT License](https://github.com/student-kyushu/frau/blob/master/LICENSE.MIT)
+[The MIT License](https://github.com/naxa-jp/frau/blob/master/LICENSE.MIT)
 
 ## How to Contribute
 
 We welcome your contributing, thanks!
 
-See [CONTRIBUTING.md](https://github.com/student-kyushu/frau/blob/master/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/naxa-jp/frau/blob/master/CONTRIBUTING.md)

@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/v24/github"
-	"github.com/student-kyushu/frau/operation"
+	"github.com/naxa-jp/frau/operation"
 )
 
 func AssignReviewer(ctx context.Context, client *github.Client, ev *github.IssueCommentEvent, assignees []string) (bool, error) {

@@ -7,7 +7,7 @@ import (
 	"log"
 
 	"github.com/google/go-github/v24/github"
-	"github.com/student-kyushu/frau/setting"
+	"github.com/naxa-jp/frau/setting"
 )
 
 func GetRepositoryInfo(ctx context.Context, repoSvc *github.RepositoriesService, owner, name string) *setting.RepositoryInfo {
