@@ -19,8 +19,11 @@ jobs:
       - name: Run build
         run: go build -v
 
-      - name: Check formatting
-        run: go fmt ./...
-
       - name: Run test
-        run: go test -v ./...
+        run: go test -v -race ./...
+
+      - name: Check formatting
+        run: (! gofmt -s -d . | grep '^')
+
+      - name: Check with `go vet`
+        run: go vet ./...
