@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/google/go-github/v24/github"
+	"github.com/google/go-github/v28/github"
 )
 
 const (
