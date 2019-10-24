@@ -1,6 +1,6 @@
 # frau
 
-[![CircleCI](https://circleci.com/gh/naxa-jp/frau/tree/master.svg?style=svg)](https://circleci.com/gh/naxa-jp/frau/tree/master)
+[![Build Status](https://github.com/naxa-jp/frau/workflows/Go%20CI/badge.svg)](https://github.com/naxa-jp/frau/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/naxa-jp/frau)](https://goreportcard.com/report/github.com/naxa-jp/frau)
 
 ## What is this?
