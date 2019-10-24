@@ -58,11 +58,12 @@ Please get binary from [here](https://github.com/naxa-jp/frau/releases) or build
     * Please see [`OwnersFile`](./setting/ownersfile.go) about the detail.
     * The example is [here](./OWNERS.json).
 3. Set `http://<your_server_with_port>/github` for the webhook to your repository with these events:
-    * `Issue comment`
-    * `Push`
-    * `Status` (required to use Auto-Merging feature (non GitHub App CI services)).
-    * `Check Suite` (required to use Auto-Merging feature (GitHub App CI Services)).
-    * `Pull Request` (required to remove all status (`S-` prefixed) labels after a pull request is closed).
+    * `Check suites` (required to use Auto-Merging feature (GitHub App CI Services))
+    * `Issue comments`
+    * `Pull requests` (required to remove all status (`S-` prefixed) labels after a pull request is closed)
+    * `Pull request reviews` (required to `r+` PRs via reviews)
+    * `Pushes`
+    * `Statuses` (required to use Auto-Merging feature (non GitHub App CI services))
 4. Create these labels to make the status visible.
     * `S-awaiting-review`
         * for a pull request assigned to some reviewer.
