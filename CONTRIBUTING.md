@@ -62,10 +62,10 @@ Recommend to use these:
 
 ## Issues
 
-If you find a security vulnerability, do **NOT** open an issue. Email contact@kyushu.gr.jp instead.
+If you find a security vulnerability, do **NOT** open an issue. Email contact@naxa.co.jp instead.
 
 Feature requests and bug reports are filed in https://github.com/naxa-jp/frau/issues. Before submitting a new issue, please search for similar issues. If somebody has encountered similar bug or wanted similar feature, please add your reaction or comment to the issues.💓
 
-## Community
+## Company
 
-frau is developed with the support and involvement of KSA. If you're interested in us, please visit https://www.kyushu.gr.jp.
+frau is developed with the support and involvement of NAXA, LLC. If you're interested in us, please visit https://www.naxa.co.jp.
