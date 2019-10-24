@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/google/go-github/v24/github"
+	"github.com/google/go-github/v28/github"
 	"github.com/naxa-jp/frau/setting"
 )
 
